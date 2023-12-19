@@ -1,0 +1,19 @@
+body{
+
+    font-family:helvetica;
+    color:Gold;
+    background-color:MidnightBlue;
+}
+
+#out_div1, #out_div2, #out_div3{
+
+    color:white;
+}
+
+#shortest_path, #topological_sort{
+
+    border:2px solid white;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:20px;
+}
