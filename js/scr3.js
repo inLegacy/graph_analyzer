@@ -3,15 +3,20 @@
 const map1img = document.getElementById("map1img");
 const map2img = document.getElementById("map2img");
 const map3img = document.getElementById("map3img");
+const map4img = document.getElementById("map4img");
+
 const upload_sect = document.getElementById("upload_sect");
 const upload_sect2 = document.getElementById("upload_sect2");
+const upload_sect3 = document.getElementById("upload_sect2");
 
 const graph_name = document.querySelectorAll(".graph_name");
 const graph_name2 = document.querySelectorAll(".graph_name2");
+const graph_name3 = document.querySelectorAll(".graph_name3");
 
 const out_div1 = document.getElementById("out_div1");
 const out_div2 = document.getElementById("out_div2");
 const out_div3 = document.getElementById("out_div3");
+const out_div4 = document.getElementById("out_div4");
 
 let topo_graph = null;
 
@@ -20,6 +25,10 @@ function start(){
         change_selected(1);
         
         change_selected(3);
+		
+		change_selected(4);
+		
+		render4(graph7);
 }
 
 function generate(opt){
@@ -74,9 +83,11 @@ function render(results){
     
     const out = document.createElement("table");
     out.style.border = "1px solid";
+    out.style.borderRadius = "5px";
     
     const out2 = document.createElement("table");
     out2.style.border = "1px solid";
+    out2.style.borderRadius = "5px";
     
     const h = document.createElement("th");
     h.style.padding = "20px";
@@ -201,6 +212,7 @@ function render2_initial(results){
     
     const out = document.createElement("table");
     out.style.border = "1px solid";
+    out.style.borderRadius = "5px";	
     
     const row = document.createElement("tr");
     const row2 = document.createElement("tr");
@@ -264,6 +276,7 @@ function render2(results){
     
     const out = document.createElement("table");
     out.style.border = "1px solid";
+    out.style.borderRadius = "5px";
     
     const row = document.createElement("tr");
     const row2 = document.createElement("tr");
@@ -289,6 +302,167 @@ function render2(results){
     out.appendChild(row2);
     
     out_div3.appendChild(out);
+}
+
+function render3(g){
+	
+	const change_results = [];
+	
+	transitiveClosure_chatGPT(format_chatGPT(g)).forEach((r)=>{
+	    
+	    r.forEach((element)=>{
+	    
+	        change_results.push(element);
+	    });
+	});
+	
+	let results = [];
+	
+	change_results.forEach((r)=>{
+	
+	    if(r){
+	    
+	        results.push(1);
+	    }else{
+	    
+	        results.push(0);
+	    }
+	});
+	
+	let new_results = [];
+	let row = [];
+	
+	for(let a = 0; a < results.length; a++){
+		
+		row.push(results[a]);
+		
+		if((a+1) % g.vertices.length === 0){
+			
+			new_results.push(row);
+			row = [];
+		}
+	}
+	
+	const out = document.createElement("table");
+    out.style.border = "1px solid";
+    out.style.borderRadius = "5px";
+    
+    const rowt = document.createElement("tr");
+	
+	const th = document.createElement("th");
+    th.style.padding = "20px";
+    th.innerText = "";
+    rowt.appendChild(th);
+	
+	g.vertices.forEach((v)=>{
+		
+		const th = document.createElement("th");
+        th.style.padding = "20px";
+        th.style.borderBottom = "1px solid";
+        th.style.borderRight = "1px solid";
+        th.innerText = v;
+        rowt.appendChild(th); 
+	});
+    
+    out.appendChild(rowt);
+	
+	let cont1 = 0;
+	
+    new_results.forEach((r)=>{
+	
+        const row2 = document.createElement("tr");
+    
+		const th = document.createElement("th");
+        th.style.padding = "20px";
+        th.style.borderBottom = "1px solid";
+        th.style.borderRight = "1px solid";
+        th.innerText = g.vertices[cont1];
+        row2.appendChild(th); 
+        
+        r.forEach((i)=>{
+			
+			const td = document.createElement("td");
+			td.style.padding = "20px";
+			td.style.borderBottom = "1px solid";
+			td.style.borderRight = "1px solid";
+			td.innerText = i;
+			row2.appendChild(td);  
+		});   
+		
+		out.appendChild(row2);
+
+	    cont1++;
+    });
+    
+    out_div4.appendChild(out);
+}
+
+/*
+
+{"distances":{"P":0,"Q":2,"R":4,"S":2,"T":7},"predecessors":{"Q":"P","R":"P","S":"T","T":"R"}}
+
+scr3.js:33 {"distances":{"P":null,"Q":0,"R":null,"S":2,"T":null},"predecessors":{"S":"Q"}}
+
+scr3.js:33 {"distances":{"P":null,"Q":null,"R":0,"S":-2,"T":3},"predecessors":{"S":"T","T":"R"}}
+
+scr3.js:33 {"distances":{"P":null,"Q":null,"R":null,"S":0,"T":null},"predecessors":{}}
+
+scr3.js:33 {"distances":{"P":null,"Q":null,"R":null,"S":-5,"T":0},"predecessors":{"S":"T"}}
+
+*/
+
+function render4(g){
+	
+	let distances = [];
+	let preds = [];
+	
+	g.vertices.forEach((v)=>{
+		
+		let distances_row = [];
+		let preds_row = [];
+		
+		const valz = Object.values(bellmanFord(format_GPT(g), v)["distances"]);
+		
+			valz.forEach((val)=>{
+				
+				if(val !== Infinity && val !== 0){
+					
+					distances_row.push(val);
+				}else if(val === 0){
+					
+					distances_row.push(0);
+				}else if(val === Infinity){
+					
+					distances_row.push("");
+				}
+			});
+			
+		distances.push(distances_row);
+		
+		const keyz2 = Object.keys(bellmanFord(format_GPT(g), v)["predecessors"]);
+		
+		let cont1 = 0;
+		
+		g.vertices.forEach((v2)=>{
+			
+			preds_row[cont1] = "";
+			
+				keyz2.forEach((k2)=>{
+				
+					if(v2 === k2){
+					
+						preds_row[cont1] = bellmanFord(format_GPT(g), v)["predecessors"][v2];
+					}
+				});
+			
+			cont1++;
+		});
+		
+		preds.push(preds_row);
+	});
+	
+	console.log(distances);
+	console.log(preds);
 }
 
 function change_selected(opt){
@@ -330,6 +504,16 @@ function change_selected(opt){
         graph_name2[0].innerText = "graph3";
         
         render2_initial(dfsTopSort(initial_function_graph));
+    }else if(opt === 4){
+    
+        out_div4.innerHTML = "";
+        
+        map4img.setAttribute("style", "border:5px solid Gold;height:200px;width:400px;cursor:pointer;border-radius:10px;"); 
+        upload_sect3.setAttribute("style", "border:none;height:200px;width:400px;cursor:pointer;");
+    
+        graph_name3[0].innerText = "graph4";
+		
+		render3(graph4);
     }
 }
 
@@ -417,6 +601,43 @@ async function readText2(event) {
             graph_name2[0].innerText = "custom graph";
    
             render2(dfsTopSort(function_graph));    
+        
+            
+        }else{
+  
+            document.getElementById("output2").innerText = "the custom graph format is wrong, try again";
+        }
+        
+    }catch (e) {
+        
+        document.getElementById("output2").innerText = "the file is not a JSON, try again";
+    }
+}
+
+async function readText3(event) {
+
+  map4img.setAttribute("style", "border:none;height:200px;width:400px;cursor:pointer;"); 
+  upload_sect3.setAttribute("style", "border:5px solid Gold;height:200px;width:300px;cursor:pointer;border-radius:10px;");
+
+  const file = event.target.files.item(0);
+  const text = await file.text();
+  
+  
+  
+    try {
+    
+        const closure_graph = JSON.parse(text);
+        
+        if(Array.isArray(closure_graph.vertices) && Array.isArray(closure_graph.edges)){
+  
+        out_div4.innerHTML = "";
+        
+        map4img.setAttribute("style", "border:5px solid Gold;height:200px;width:400px;cursor:pointer;border-radius:10px;"); 
+        upload_sect3.setAttribute("style", "border:none;height:200px;width:400px;cursor:pointer;");
+    
+        graph_name3[0].innerText = "custom graph";
+		
+		render3(closure_graph);   
         
             
         }else{

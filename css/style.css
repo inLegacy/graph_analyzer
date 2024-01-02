@@ -5,12 +5,12 @@ body{
     background-color:MidnightBlue;
 }
 
-#out_div1, #out_div2, #out_div3{
+#out_div1, #out_div2, #out_div3, #out_div4, #out_div5{
 
     color:white;
 }
 
-#shortest_path, #topological_sort{
+#shortest_path, #topological_sort, #transitive_closure, #bellman_ford{
 
     border:2px solid white;
     border-radius:20px;
