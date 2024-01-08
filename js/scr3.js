@@ -12,11 +12,14 @@ const upload_sect3 = document.getElementById("upload_sect2");
 const graph_name = document.querySelectorAll(".graph_name");
 const graph_name2 = document.querySelectorAll(".graph_name2");
 const graph_name3 = document.querySelectorAll(".graph_name3");
+const graph_name4 = document.querySelectorAll(".graph_name4");
 
 const out_div1 = document.getElementById("out_div1");
 const out_div2 = document.getElementById("out_div2");
 const out_div3 = document.getElementById("out_div3");
 const out_div4 = document.getElementById("out_div4");
+const out_div5 = document.getElementById("out_div5");
+const out_div6 = document.getElementById("out_div6");
 
 let topo_graph = null;
 
@@ -28,7 +31,7 @@ function start(){
 		
 		change_selected(4);
 		
-		render4(graph7);
+		change_selected(5);
 }
 
 function generate(opt){
@@ -397,19 +400,6 @@ function render3(g){
     out_div4.appendChild(out);
 }
 
-/*
-
-{"distances":{"P":0,"Q":2,"R":4,"S":2,"T":7},"predecessors":{"Q":"P","R":"P","S":"T","T":"R"}}
-
-scr3.js:33 {"distances":{"P":null,"Q":0,"R":null,"S":2,"T":null},"predecessors":{"S":"Q"}}
-
-scr3.js:33 {"distances":{"P":null,"Q":null,"R":0,"S":-2,"T":3},"predecessors":{"S":"T","T":"R"}}
-
-scr3.js:33 {"distances":{"P":null,"Q":null,"R":null,"S":0,"T":null},"predecessors":{}}
-
-scr3.js:33 {"distances":{"P":null,"Q":null,"R":null,"S":-5,"T":0},"predecessors":{"S":"T"}}
-
-*/
 
 function render4(g){
 	
@@ -422,6 +412,8 @@ function render4(g){
 		let preds_row = [];
 		
 		const valz = Object.values(bellmanFord(format_GPT(g), v)["distances"]);
+		
+		
 		
 			valz.forEach((val)=>{
 				
@@ -440,6 +432,8 @@ function render4(g){
 		distances.push(distances_row);
 		
 		const keyz2 = Object.keys(bellmanFord(format_GPT(g), v)["predecessors"]);
+		
+		
 		
 		let cont1 = 0;
 		
@@ -461,8 +455,115 @@ function render4(g){
 		preds.push(preds_row);
 	});
 	
-	console.log(distances);
-	console.log(preds);
+	
+	const out = document.createElement("table");
+    out.style.border = "1px solid";
+    out.style.borderRadius = "5px";
+    
+    const out2 = document.createElement("table");
+    out2.style.border = "1px solid";
+    out2.style.borderRadius = "5px";
+	
+	
+	const h = document.createElement("th");
+    h.style.padding = "20px";
+    h.innerText = "";
+	
+	const h2 = document.createElement("th");
+    h2.style.padding = "20px";
+    h2.innerText = "";
+	
+	const row = document.createElement("tr");
+	const row2 = document.createElement("tr");
+	
+    row.appendChild(h);
+	row2.appendChild(h2);
+	
+	 g.vertices.forEach(
+        
+        (k) => {
+        
+                const h = document.createElement("th");
+                h.style.padding = "20px";
+                h.style.borderBottom = "1px solid";
+                h.style.borderRight = "1px solid";
+                h.innerText = k;
+                
+                row.appendChild(h);
+                
+                const h2 = document.createElement("th");
+                h2.style.padding = "20px";
+                h2.style.borderBottom = "1px solid";
+                h2.style.borderRight = "1px solid";
+                h2.innerText = k;
+                
+                row2.appendChild(h2);
+                
+        }
+    );
+	
+	out.appendChild(row);
+	
+	distances.forEach(
+		
+        (d, i) => {
+			
+			let row1 = document.createElement("tr");
+			
+			const td = document.createElement("td");
+            td.style.padding = "20px";
+            td.style.borderBottom = "1px solid";
+            td.style.borderRight = "1px solid";
+            td.innerText = g.vertices[i];
+            row1.appendChild(td);
+			
+			d.forEach(
+
+			(k) => {
+			
+                const td = document.createElement("td");
+                td.style.padding = "20px";
+                td.style.borderBottom = "1px solid";
+                td.style.borderRight = "1px solid";
+                td.innerText = k ;
+                row1.appendChild(td);
+                
+		});
+		out.appendChild(row1);
+	});
+	
+	out2.appendChild(row2);
+	
+	preds.forEach(
+		
+        (d, i) => {
+			
+			let row1 = document.createElement("tr");
+			
+			const td = document.createElement("td");
+            td.style.padding = "20px";
+            td.style.borderBottom = "1px solid";
+            td.style.borderRight = "1px solid";
+            td.innerText = g.vertices[i];
+            row1.appendChild(td);
+			
+			d.forEach(
+
+			(k) => {
+			
+                const td = document.createElement("td");
+                td.style.padding = "20px";
+                td.style.borderBottom = "1px solid";
+                td.style.borderRight = "1px solid";
+                td.innerText = k ;
+                row1.appendChild(td);
+                
+		});
+		out2.appendChild(row1);
+	});
+	
+    out_div5.appendChild(out);
+	out_div6.appendChild(out2);
 }
 
 function change_selected(opt){
@@ -514,7 +615,20 @@ function change_selected(opt){
         graph_name3[0].innerText = "graph4";
 		
 		render3(graph4);
+    }else if(opt === 5){
+    
+        out_div5.innerHTML = "";
+        out_div6.innerHTML = "";
+		
+        map5img.setAttribute("style", "border:5px solid Gold;height:200px;width:400px;cursor:pointer;border-radius:10px;"); 
+        upload_sect4.setAttribute("style", "border:none;height:200px;width:400px;cursor:pointer;");
+    
+        graph_name4[0].innerText = "graph7";
+		graph_name4[1].innerText = "graph7";
+		
+		render4(graph7);
     }
+		
 }
 
 async function readText(event) {
@@ -648,6 +762,45 @@ async function readText3(event) {
     }catch (e) {
         
         document.getElementById("output2").innerText = "the file is not a JSON, try again";
+    }
+}
+
+async function readText4(event) {
+
+  map5img.setAttribute("style", "border:none;height:200px;width:400px;cursor:pointer;"); 
+  upload_sect4.setAttribute("style", "border:5px solid Gold;height:200px;width:300px;cursor:pointer;border-radius:10px;");
+
+  const file = event.target.files.item(0);
+  const text = await file.text();
+  
+  
+  
+    try {
+    
+        const negative_graph = JSON.parse(text);
+        
+        if(Array.isArray(negative_graph.vertices) && Array.isArray(negative_graph.edges)){
+  
+        out_div5.innerHTML = "";
+        out_div6.innerHTML = "";
+		
+        map4img.setAttribute("style", "border:5px solid Gold;height:200px;width:400px;cursor:pointer;border-radius:10px;"); 
+        upload_sect4.setAttribute("style", "border:none;height:200px;width:400px;cursor:pointer;");
+    
+        graph_name4[0].innerText = "custom graph";
+		graph_name4[1].innerText = "custom graph";
+		
+		render4(negative_graph);   
+        
+            
+        }else{
+  
+            document.getElementById("output4").innerText = "the custom graph format is wrong, try again";
+        }
+        
+    }catch (e) {
+        
+        document.getElementById("output4").innerText = "the file is not a JSON, try again";
     }
 }
 

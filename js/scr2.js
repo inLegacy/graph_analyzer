@@ -91,6 +91,13 @@ const graph7 = {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+function open_json(){
+	
+	window.open("./json/graph1.json");
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 //this graph model is for shortest path section
 
 class Graph {
