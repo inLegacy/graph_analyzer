@@ -1,3 +1,5 @@
+
+
 const graph1 = {
 
 	'vertices':['A','B','C','D','E'],

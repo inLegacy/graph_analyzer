@@ -18,51 +18,51 @@
 
 <div id="shortest_path">
 
-<h2>shortest paths via Dijkstra algorithm</h2>
+    <h2>shortest paths via Dijkstra algorithm</h2>
 
-<div style="display:flex;flex-direction:row;justify-content:space-around;">
+    <div style="display:flex;flex-direction:row;justify-content:space-around;">
 
-	<div>
+	    <div>
 
-		<img src="./imgs/graph1.png" style="height:200px;width:300px;border:5px solid red;cursor:pointer;" id="map1img"  onclick="change_selected(1)"></img>
+	    	<img src="./imgs/graph1.png" style="height:200px;width:300px;border:5px solid red;cursor:pointer;" id="map1img"  onclick="change_selected(1)"></img>
 		
-		<br><br>
-		<a style="color:white;cursor:pointer;" onclick="open_json()">view sample .json</a>
+	    	<br><br>
+	    	<a style="color:white;cursor:pointer;" onclick="open_json()">view sample .json</a>
 		
-	</div>
+	    </div>
 	
-    <img src="./imgs/graph2.png" style="height:200px;width:300px;border:none;cursor:pointer;" id="map2img"     onclick="change_selected(2)"></img>
+        <img src="./imgs/graph2.png" style="height:200px;width:300px;border:none;cursor:pointer;" id="map2img"     onclick="change_selected(2)"></img>
 		
 	
 
-    <div id="upload_sect">
+        <div id="upload_sect">
 
-        <input type="file" onchange="readText(event)" />
-        <h3 id="output">upload your graph</h3>
+            <input type="file" onchange="readText(event)" />
+            <h3 id="output">upload your graph</h3>
+
+        </div>
 
     </div>
 
-</div>
+    <div style="display:flex;flex-direction:column;justify-content:space-around;">
 
-<div style="display:flex;flex-direction:row;justify-content:space-around;">
+    <div>
 
-<div>
+        <h2 class="graph_name"></h2><h2> minimum distances</h2>
 
-    <h2 class="graph_name"></h2><h2> minimum distances</h2>
+        <div id="out_div1"></div>
 
-    <div id="out_div1"></div>
+    </div>
 
-</div>
+    <div>
 
-<div>
+        <h2 class="graph_name"></h2><h2> minimum distances pathways</h2>
 
-    <h2 class="graph_name"></h2><h2> minimum distances pathways</h2>
+        <div id="out_div2"></div>
 
-    <div id="out_div2"></div>
+    </div>
 
-</div>
-
-</div>
+    </div>
 
 </div>
 
@@ -147,7 +147,7 @@
     
 	</div>
 	
-<div style="display:flex;flex-direction:row;justify-content:space-around;">
+<div style="display:flex;flex-direction:column;justify-content:space-around;">
 
 <div>
 
