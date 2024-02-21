@@ -1,0 +1,20 @@
+{
+	"vertices":["campalto","aeroporto","venice","burano","torcello","mazzorbo","murano","punta sabbioni","san michele","lido","sant erasmo"],
+	"edges":[
+			{"u":"campalto","v":"aeroporto","w":5},
+			{"u":"campalto","v":"san michele","w":15},
+			{"u":"aeroporto","v":"mazzorbo","w":3},
+			{"u":"aeroporto","v":"torcello","w":4},
+			{"u":"venice","v":"sant erasmo","w":25},
+			{"u":"burano","v":"mazzorbo","w":3},
+			{"u":"torcello","v":"venice","w":1},
+			{"u":"mazzorbo","v":"murano","w":2.5},
+			{"u":"murano","v":"san michele","w":3},
+			{"u":"murano","v":"campalto","w":6.6},
+			{"u":"punta sabbioni","v":"campalto","w":10},
+			{"u":"lido","v":"punta sabbioni","w":15},
+			{"u":"lido","v":"san michele","w":-100},
+			{"u":"sant erasmo","v":"lido","w":15}
+
+		]
+}
