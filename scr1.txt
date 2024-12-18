@@ -1,0 +1,58 @@
+let list = [ 
+    {
+    "gear" : 1 ,
+    "teeths" : 72
+    },
+    {
+    "gear" : 2 ,
+    "teeths" : 48
+    },
+    {
+    "gear" : 3 ,
+    "teeths" : 24
+    }
+    ];
+
+// Function to find the GCD of two gears using the Euclidean algorithm
+
+function gcd(a, b) {
+
+    while (b !== 0) {
+	
+        let temp = b;
+		
+        b = a % b;
+		
+        a = temp;
+    }
+	
+    return a;
+}
+
+// Function to find the GCD of an array of gears
+
+function gcdMultiple(gears) {
+
+    if (gears.length === 0) return null; // No gears to process
+	
+    if (gears.length === 1) return gears[0].teeths; // Only one number, its GCD is itself
+
+    // Start with the first number
+	
+    let result = gears[0].teeths;
+
+    // Iterate through the array and compute the GCD for the current result and the next number
+	
+    for (let i = 1; i < gears.length; i++) {
+	
+        result = gcd(result, gears[i].teeths);
+    }
+
+    return result;
+}
+
+// Example usage
+
+const result = gcdMultiple(list);
+
+console.log(`The GCD is: ${result}`); 
