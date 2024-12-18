@@ -1,3 +1,52 @@
+// - - SCRIPT I - - - TOWER OF HANOI PUZZLE, OUTPUT EACH DISK MOVEMENT BY CONSOLE.LOG  - - - - - 
+
+// DECLARING A MOVE FUNCTION
+
+function move(disk, from, to, aux){
+
+if(disk === 0){
+
+	return;
+}
+
+// RECURSIVE CALLING
+
+move(disk - 1, from, aux, to);
+
+console.log("moving disk: " + disk + " from: " + from + " to " + to + "\n");
+
+// RECURSIVE CALLING
+
+move(disk - 1, aux, to, from);
+
+}
+
+// DECLARING DISK
+
+let disk = 3;
+
+// CALLING THE FUNCTION TO START PROCESS
+
+move(disk, "A", "C", "B");
+
+
+
+
+
+// - - SCRIPT I - - - TOWER OF HANOI PUZZLE, OUTPUT EACH DISK MOVEMENT BY CONSOLE.LOG  - - - - - 
+
+
+
+
+
+
+
+
+
+// - - SCRIPT II - - - - FIND GDC AMONG LIST ELEMENTS BY EUCLIDEAN ALGORITHM  - - - - - - - - 
+
+
+
 let list = [ 
     {
     "gear" : 1 ,
@@ -10,6 +59,14 @@ let list = [
     {
     "gear" : 3 ,
     "teeths" : 24
+    },
+    {
+    "gear" : 4 ,
+    "teeths" : 11
+    },
+    {
+    "gear" : 5 ,
+    "teeths" : 7
     }
     ];
 
@@ -51,8 +108,13 @@ function gcdMultiple(gears) {
     return result;
 }
 
+
 // Example usage
 
 const result = gcdMultiple(list);
 
 console.log(`The GCD is: ${result}`); 
+
+
+
+// - - SCRIPT II - - - - FIND GDC AMONG LIST ELEMENTS BY EUCLIDEAN ALGORITHM  - - - - - - - - 
